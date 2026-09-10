@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>منشئ الامتحانات</title>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700&display=swap');
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "Cairo", sans-serif;
+      background: #f5f6f4;
+      color: #343a3a;
+    }
+
+    /* واجهة تسجيل الدخول */
+    .login-page {
+      min-height: 100vh;
+      background: #17191b;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .login-box {
+      width: 100%;
+      max-width: 420px;
+      background: #232629;
+      border: 1px solid #3a3e40;
+      border-radius: 22px;
+      padding: 35px 28px;
+      text-align: center;
+      box-shadow: 0 15px 45px rgba(0, 0, 0, 0.3);
+    }
+
+    .login-logo {
+      width: 125px;
+      height: 125px;
+      object-fit: contain;
+      background: white;
+      border-radius: 50%;
+      padding: 8px;
+      margin-bottom: 18px;
+    }
+
+    .login-box h1 {
+      color: #f1f1ef;
+      font-size: 24px;
+      margin-bottom: 8px;
+    }
+
+    .login-box p {
+      color: #b5bab8;
+      font-size: 13px;
+      line-height: 1.8;
+      margin-bottom: 25px;
+    }
+
+    .login-box label {
+      display: block;
+      text-align: right;
+      color: #d9dcda;
+      font-size: 14px;
+      margin-bottom: 7px;
+    }
+
+    .login-box input {
+      width: 100%;
+      padding: 14px;
+      border: 1px solid #484d4e;
+      border-radius: 11px;
+      background: #17191b;
+      color: white;
+      font-family: inherit;
+      outline: none;
+      margin-bottom: 17px;
+    }
+
+    .login-box input:focus {
+      border-color: #829b95;
+    }
+
+    button {
+      font-family: inherit;
+      cursor: pointer;
+    }
+
+    .login-button {
+      width: 100%;
+      padding: 13px;
+      border: none;
+      border-radius: 11px;
+      background: #78918b;
+      color: white;
+      font-size: 15px;
+    }
+
+    .login-button:hover {
+      background: #627a74;
+    }
+
+    .error {
+      display: none;
+      color: #df9a9a;
+      font-size: 13px;
+      margin-top: 14px;
+    }
+
+    /* الواجهة الرئيسية */
+    .app {
+      display: none;
+      min-height: 100vh;
+    }
+
+    .topbar {
+      background: white;
+      border-bottom: 1px solid #e0e4e1;
+      padding: 16px 6%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 13px;
+    }
+
+    .brand img {
+      width: 62px;
+      height: 62px;
+      object-fit: contain;
+    }
+
+    .brand h2 {
+      font-size: 18px;
+      color: #3f4947;
+      margin-bottom: 3px;
+    }
+
+    .brand span {
+      color: #858d89;
+      font-size: 11px;
+    }
+
+    .logout {
+      padding: 9px 15px;
+      background: #fafafa;
+      border: 1px solid #dfe3e0;
+      border-radius: 10px;
+      color: #777f7b;
+    }
+
+    .logout:hover {
+      color: #a86161;
+      border-color: #d9b6b6;
+    }
+
+    .container {
+      width: min(1150px, 92%);
+      margin: auto;
+      padding: 45px 0;
+    }
+
+    .welcome {
+      background: #e8efeb;
+      border: 1px solid #dae5df;
+      border-radius: 20px;
+      padding: 30px;
+      margin-bottom: 35px;
+    }
+
+    .welcome h1 {
+      color: #3e504a;
+      font-size: 27px;
+      margin-bottom: 8px;
+    }
+
+    .welcome p {
+      color: #6d7974;
+      font-size: 14px;
+    }
+
+    .title {
+      font-size: 21px;
+      margin-bottom: 18px;
+      color: #454d4d;
+    }
+
+    .subjects {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(215px, 1fr));
+      gap: 17px;
+    }
+
+    .subject {
+      background: white;
+      border: 1px solid #e0e4e1;
+      border-radius: 17px;
+      padding: 22px;
+      min-height: 145px;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .subject:hover {
+      transform: translateY(-4px);
+      border-color: #aec2bb;
+      box-shadow: 0 9px 22px rgba(70, 90, 82, 0.08);
+    }
+
+    .icon {
+      width: 42px;
+      height: 42px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 12px;
+      background: #edf2ef;
+      color: #607a72;
+      font-size: 20px;
+      margin-bottom: 15px;
+    }
+
+    .subject h3 {
+      color: #454d4d;
+      font-size: 16px;
+      margin-bottom: 5px;
+    }
+
+    .subject p {
+      color: #888f8c;
+      font-size: 12px;
+    }
+
+    .footer {
+      text-align: center;
+      color: #999f9c;
+      font-size: 12px;
+      margin-top: 40px;
+    }
+
+    @media (max-width: 600px) {
+      .topbar {
+        padding: 14px 4%;
+      }
+
+      .brand h2 {
+        font-size: 14px;
+      }
+
+      .brand span {
+        font-size: 9px;
+      }
+
+      .brand img {
+        width: 50px;
+        height: 50px;
+      }
+
+      .welcome {
+        padding: 23px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- صفحة الدخول -->
+  <section class="login-page" id="loginPage">
+    <div class="login-box">
+
+      <img src="logo.png" alt="شعار المدرسة" class="login-logo">
+
+      <h1>منشئ الامتحانات</h1>
+
+      <p>
+        إعدادية الشهيد حسن نصر الله<br>
+        للحاسبات وتقنية المعلومات
+      </p>
+
+      <label for="password">كلمة المرور</label>
+
+      <input
+        type="password"
+        id="password"
+        placeholder="أدخل كلمة المرور"
+      >
+
+      <button class="login-button" onclick="login()">
+        دخول إلى النظام
+      </button>
+
+      <div class="error" id="error">
+        كلمة المرور غير صحيحة
+      </div>
+
+    </div>
+  </section>
+
+  <!-- الواجهة الرئيسية -->
+  <main class="app" id="app">
+
+    <header class="topbar">
+
+      <div class="brand">
+        <img src="logo.png" alt="شعار المدرسة">
+
+        <div>
+          <h2>منشئ الامتحانات الإلكتروني</h2>
+          <span>
+            إعدادية الشهيد حسن نصر الله للحاسبات وتقنية المعلومات
+          </span>
+        </div>
+      </div>
+
+      <button class="logout" onclick="logout()">
+        تسجيل الخروج
+      </button>
+
+    </header>
+
+    <div class="container">
+
+      <section class="welcome">
+        <h1>مرحبًا يا أستاذ</h1>
+        <p>
+          اختر المادة التي تريد إنشاء امتحان لها.
+        </p>
+      </section>
+
+      <h2 class="title">المواد الدراسية</h2>
+
+      <section class="subjects">
+
+        <div class="subject" onclick="chooseSubject('الطبيعيات')">
+          <div class="icon">⚗</div>
+          <h3>الطبيعيات</h3>
+          <p>فيزياء وكيمياء</p>
+        </div>
+
+        <div class="subject" onclick="chooseSubject('اللغة العربية')">
+          <div class="icon">ع</div>
+          <h3>اللغة العربية</h3>
+          <p>تعريفات وأسئلة متنوعة</p>
+        </div>
+
+        <div class="subject" onclick="chooseSubject('الرياضيات')">
+          <div class="icon">∑</div>
+          <h3>الرياضيات</h3>
+          <p>مسائل وأسئلة حسابية</p>
+        </div>
+
+        <div class="subject" onclick="chooseSubject('التربية الإسلامية')">
+          <div class="icon">☾</div>
+          <h3>التربية الإسلامية</h3>
+          <p>أسئلة التربية الإسلامية</p>
+        </div>
+
+        <div class="subject" onclick="chooseSubject('أساسيات الكهرباء')">
+          <div class="icon">⚡</div>
+          <h3>أساسيات الكهرباء</h3>
+          <p>مفاهيم ودوائر كهربائية</p>
+        </div>
+
+        <div class="subject" onclick="chooseSubject('الإلكترونيات')">
+          <div class="icon">⌁</div>
+          <h3>الإلكترونيات</h3>
+          <p>مكونات ودوائر إلكترونية</p>
+        </div>
+
+        <div class="subject" onclick="chooseSubject('الحاسبات وتقنية المعلومات')">
+          <div class="icon">⌨</div>
+          <h3>الحاسبات وتقنية المعلومات</h3>
+          <p>أسئلة عربية وإنجليزية</p>
+        </div>
+
+      </section>
+
+      <div class="footer">
+        نظام إنشاء النماذج الامتحانية
+      </div>
+
+    </div>
+  </main>
+
+  <script>
+    /*
+      هذه كلمة مرور تجريبية فقط.
+      لا تضع كلمة المرور الحقيقية داخل GitHub.
+    */
+    const DEMO_PASSWORD = "CHANGE_THIS_PASSWORD";
+
+    function login() {
+      const enteredPassword =
+        document.getElementById("password").value;
+
+      const error =
+        document.getElementById("error");
+
+      if (enteredPassword === DEMO_PASSWORD) {
+        document.getElementById("loginPage").style.display = "none";
+        document.getElementById("app").style.display = "block";
+        error.style.display = "none";
+      } else {
+        error.style.display = "block";
+      }
+    }
+
+    function logout() {
+      document.getElementById("app").style.display = "none";
+      document.getElementById("loginPage").style.display = "flex";
+      document.getElementById("password").value = "";
+    }
+
+    function chooseSubject(subject) {
+      alert("تم اختيار مادة: " + subject);
+    }
+
+    document
+      .getElementById("password")
+      .addEventListener("keydown", function(event) {
+        if (event.key === "Enter") {
+          login();
+        }
+      });
+  </script>
+
+</body>
+</html>
